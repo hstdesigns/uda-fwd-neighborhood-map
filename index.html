@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Project Neighborhood Map</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,700">
+    <link rel="stylesheet" href="css/app.css">
+
+</head>
+
+<body>
+    <div class="header">
+        <span>Searchbox</span>
+        <input type="text" class="css-input" placeholder="Ex: Leander" data-bind='value: searchfilter, valueUpdate: "afterkeydown"' />
+    </div>
+
+    <div class="menu">
+        <hr>
+        <nav>
+            <ul data-bind="foreach: filteredItems">
+                <li>
+                    <a data-bind="text: name, click: $parent.clickItem"></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src='js/knockout-3.4.2.js'></script>
+    <script src="js/app.js"></script>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBQ6De-7agEpxCyzIcOtBLxp87aimf7hm8&v=3&callback=initMap">
+    </script>
+
+</body>
+</html>
