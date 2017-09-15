@@ -94,7 +94,7 @@ function viewModel() {
 
         // if the searchbox.text.length != 0 --> filter the items
         if (filter) {
-            var filtered = ko.utils.arrayFilter(self.listMapsData(), function (item) {
+            filtered = ko.utils.arrayFilter(self.listMapsData(), function (item) {
                 return (item.name.toLowerCase().indexOf(filter) > -1);
             });
         }
