@@ -17,18 +17,29 @@
         <input type="text" class="css-input" placeholder="Ex: Leander" data-bind='value: searchfilter, valueUpdate: "afterkeydown"' />
     </div>
 
-    <div class="menu">
-        <hr>
-        <nav>
-            <ul data-bind="foreach: filteredItems">
-                <li>
-                    <a data-bind="text: name, click: $parent.clickItem"></a>
-                </li>
-            </ul>
-        </nav>
+    <div class="row">
+
+        <div class="col-3">
+            <nav>
+                <ul data-bind="foreach: filteredItems">
+                    <li>
+                        <a data-bind="text: name, click: $parent.clickItem"></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="col-9">
+            <div id="map"></div>
+        </div>
+
     </div>
 
-    <div id="map"></div>
+    <div class="footer">
+        <p>Udacity Frontend Nanodegree Project</p>
+        <p>Neighborhood Map</p>
+        <p>Author: Rick</p>
+    </div>
 
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src='js/knockout-3.4.2.js'></script>

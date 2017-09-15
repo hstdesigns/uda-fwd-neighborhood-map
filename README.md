@@ -49,6 +49,9 @@ open index.html
 
 ## Changelog
 
+### 1.2.0 (Sep 15, 2017)
+- fixed responsive layout
+
 ### 1.1.0 (Sep 15, 2017)
 - Final release
 - added readme
