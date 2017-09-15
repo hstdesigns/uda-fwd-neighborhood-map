@@ -35,8 +35,7 @@ function MapsData(place) {
     // add event listener for marker animation
     self.marker.addListener('click', function () {
         // a little trick to work with scopes
-        if (activeMarkerAnimation)
-            activeMarkerAnimation.setAnimation(null);
+        activeMarkerAnimation && activeMarkerAnimation.setAnimation(null);
 
         this.setAnimation(google.maps.Animation.BOUNCE);
         activeMarkerAnimation = this;
@@ -44,7 +43,7 @@ function MapsData(place) {
 
     // template for the marker info window
     self.infoWindowContentString = function () {
-        const contentString = '<div id="content">' +
+        var contentString = '<div id="content">' +
             '<div id="siteNotice">' +
             '</div>' +
             '<h1 id="firstHeading" class="firstHeading">' + self.name + '</h1>' +
@@ -55,7 +54,7 @@ function MapsData(place) {
             '</div>';
 
         return contentString.replace('$imgsrc', self.imgurl);
-    }
+    };
 
     // add event listener for open the info window
     self.marker.addListener('click', function () {
@@ -79,14 +78,15 @@ function viewModel() {
 
     self.addMapsData = function (place) {
         self.listMapsData.push(new MapsData(place));
-    }
+    };
 
     // filter the items, when I type some text in the searchbar
     self.filteredItems = ko.computed(function () {
         var filter = self.searchfilter().toLowerCase();
+        var i = 0;
 
         // clear all active markers
-        for (var i = 0; i < self.listMapsData().length; i++) {
+        for (i = 0; i < self.listMapsData().length; i++) {
             self.listMapsData()[i].marker.setMap(null);
         }
 
@@ -99,22 +99,22 @@ function viewModel() {
             });
         }
 
-        for (var i = 0; i < filtered.length; i++) {
+        for (i = 0; i < filtered.length; i++) {
             filtered[i].marker.setMap(map);
         }
 
         return filtered;
-    })
+    });
 
     // click on the searchitem-menu
     self.clickItem = function (item) {
         google.maps.event.trigger(item.marker, 'click');
-    }
+    };
 
     // get some sample images from flickr
     self.updateInfoWindowContentString = function () {
-        const flickrAPI = 'https://api.flickr.com/services/rest/?';
-        const flickrAPIKey = '963d289f2c6ed67bbd7be859ff3e090c';
+        var flickrAPI = 'https://api.flickr.com/services/rest/?';
+        var flickrAPIKey = '963d289f2c6ed67bbd7be859ff3e090c';
 
         // make a request
         function getFlickrImage(obj) {
@@ -131,15 +131,16 @@ function viewModel() {
                 nojsoncallback: 1
             }).done(function (data) {
 
-                if (data.code && data.code != 0) {
+                if (data.code && data.code !== 0) {
                     var err = 'stat: ' + data.stat + '\rcode: ' + data.code + '\rmessage' + data.message;
                     console.log(err);
                     alert(err);
                     return;
                 }
 
+                var i = 0;
                 // update the image urls -> used for the marker info window
-                for (var i = 0; i < viewModel.listMapsData().length; i++) {
+                for (i = 0; i < viewModel.listMapsData().length; i++) {
                     viewModel.listMapsData()[i].imgurl = data.photos.photo[i].url_s;
                 }
 
@@ -158,7 +159,7 @@ function viewModel() {
             new getFlickrImage(self.listMapsData()[i]);
         }
         */
-    }
+    };
 }
 
 var viewModel = new viewModel(); // create instance
@@ -167,7 +168,7 @@ ko.applyBindings(viewModel); // bind all
 // the google maps init function --> called from the script
 function initMap() {
     // hard coded
-    const maxPlaces = 6;
+    var maxPlaces = 6;
     // lat and long hard coded for berlin
     var locBerlin = new google.maps.LatLng(52.5175304, 13.4012768);
 
@@ -188,8 +189,9 @@ function initMap() {
     // Handle the callback with an anonymous function.
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, function (results, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-            for (var i = 0; i < maxPlaces; i++) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+            var i = 0;
+            for (i = 0; i < maxPlaces; i++) {
                 place = results[i];
                 // fill the MVC with data
                 viewModel.addMapsData(place);
