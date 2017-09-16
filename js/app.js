@@ -75,7 +75,7 @@ function MapsData(place) {
 }
 
 // here comes the MVC pattern
-function viewModel() {
+function ViewModel() {
     var self = this;
     self.listMapsData = ko.observableArray();
     self.searchfilter = ko.observable('');
@@ -91,7 +91,7 @@ function viewModel() {
 
         // clear all active markers
         for (i = 0; i < self.listMapsData().length; i++) {
-            self.listMapsData()[i].marker.setMap(null);
+            self.listMapsData()[i].marker.setVisible(false);
         }
 
         var filtered = self.listMapsData();
@@ -104,7 +104,7 @@ function viewModel() {
         }
 
         for (i = 0; i < filtered.length; i++) {
-            filtered[i].marker.setMap(map);
+            filtered[i].marker.setVisible(true);
         }
 
         return filtered;
@@ -166,7 +166,7 @@ function viewModel() {
     };
 }
 
-var viewModel = new viewModel(); // create instance
+var viewModel = new ViewModel(); // create instance
 ko.applyBindings(viewModel); // bind all
 
 // the google maps init function --> called from the script
@@ -206,9 +206,12 @@ function initMap() {
     });
 }
 
-// user information about a google maps api error
-function gm_authFailure() {
-    alert('google maps api error!');
+/**
+ * Error callback for GMap API request
+ */
+function mapError() {
+    // Error handling
+    alert('Google Maps API Error!');
 }
 
 /* All of this functionality is heavily reliant upon the DOM, so we
