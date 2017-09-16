@@ -206,6 +206,11 @@ function initMap() {
     });
 }
 
+// user information about a google maps api error
+function gm_authFailure() {
+    alert('google maps api error!');
+};
+
 /* All of this functionality is heavily reliant upon the DOM, so we
  * place our code in the $() function to ensure it doesn't execute
  * until the DOM is ready.
