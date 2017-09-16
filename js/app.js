@@ -35,7 +35,9 @@ function MapsData(place) {
     // add event listener for marker animation
     self.marker.addListener('click', function () {
         // a little trick to work with scopes
-        activeMarkerAnimation && activeMarkerAnimation.setAnimation(null);
+        if (activeMarkerAnimation) {
+            activeMarkerAnimation.setAnimation(null);
+        }
 
         this.setAnimation(google.maps.Animation.BOUNCE);
         activeMarkerAnimation = this;
@@ -59,7 +61,9 @@ function MapsData(place) {
     // add event listener for open the info window
     self.marker.addListener('click', function () {
         // a little trick to work with scopes
-        activeInfoWindow && activeInfoWindow.close();
+        if (activeInfoWindow) {
+            activeInfoWindow.close();
+        }
 
         var infoWindow = new google.maps.InfoWindow({
             content: self.infoWindowContentString()
